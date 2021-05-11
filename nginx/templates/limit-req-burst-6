@@ -1,0 +1,8 @@
+#Таким образом мы ограничили частоту запросов до 4 в секунду с всплесками до 6 и отключили лимит для поисковиков 
+        limit_req  zone=mysitelimit burst=6;
+        error_page 410 = @nolimit;
+        if ($http_user_agent ~ Googlebot|YandexBot|bingbot|Baiduspider) {
+            return 410;
+        }
+    location @nolimit {
+    }

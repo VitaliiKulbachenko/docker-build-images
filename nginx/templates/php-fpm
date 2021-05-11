@@ -1,0 +1,37 @@
+# Передаём обработку PHP-скриптов PHP-FPM
+location ~ \.php$ {
+	try_files $uri =404; 
+	fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+	fastcgi_pass php:9000;
+
+	#fastcgi_pass   unix:/var/run/php5-fpm.sock;
+	#Использовать cache зона one
+	fastcgi_cache  one;
+
+	fastcgi_cache_min_uses 3;
+
+	#Кешировать перечисленные ответы
+	fastcgi_cache_valid 200 301 302 304 5m;
+
+	#Формат ключа кеша - по этому ключу nginx находит правильную страничку
+	fastcgi_cache_key "$request_method|$host|$request_uri";
+
+	#Если не использовать эту опцию - то в форумах все будут сидеть под именем первого вошедшего на форум
+	# fastcgi_hide_header "Set-Cookie";
+
+	#Этот запрос заставит nginx кешировать все что проходит через него
+	# fastcgi_ignore_headers "Cache-Control" "Expires";
+
+	fastcgi_index  index.php;
+	#  fastcgi_intercept_errors on; # только на период тестирования
+	# Включаем параметры из /etc/nginx/fastcgi_param
+
+	include fastcgi_params;
+
+	# Путь к скрипту, который будет передан в php-fpm
+	fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+	fastcgi_param PATH_INFO $fastcgi_path_info;
+	fastcgi_ignore_client_abort     off;
+}
+  

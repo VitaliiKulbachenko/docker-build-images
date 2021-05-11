@@ -1,0 +1,2 @@
+rewrite ^/(.*)$   https://$host/$1 permanent;
+
