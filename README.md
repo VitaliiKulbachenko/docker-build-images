@@ -1,4 +1,5 @@
 #  Start working
+- Clone https://github.com/VitaliiKulbachenko/docker-build-images.git 
 
 To start this app, perform the following steps:
 
