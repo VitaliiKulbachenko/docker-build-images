@@ -54,7 +54,8 @@ ECHO_QUESTION -n \
 ***********************************************************
 * 1  - Build :=> Mysql57
 * 2  - Build :=> Nginx
-* 3  - Build :=> Php-fpm 7.4
+* 3  - Build :=> Php-fpm 7.3
+* 4  - Build :=> Php-fpm 7.4
 ***********************************************************
 " \
 "Choose installation option: => "

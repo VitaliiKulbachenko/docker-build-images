@@ -20,7 +20,7 @@ ENV PHP_FPM_PATH="/etc/opt/remi/php${PHP_VERSION}/php-fpm.d"
 RUN yum install -y yum-utils  epel-release && \
     rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
     yum-config-manager --disable remi-php5* && \
-    yum-config-manager --enable remi-php"${PHP_VERSION}" && \
+    yum-config-manager --enable remi-php${PHP_VERSION} && \
     yum -y install php${PHP_VERSION}-php-fpm php${PHP_VERSION}-php-mysql php${PHP_VERSION}-php-redis php${PHP_VERSION}-php-apcu \
     php${PHP_VERSION}-php-xmlrpc php${PHP_VERSION}-php-curl php${PHP_VERSION}-php-pdo php${PHP_VERSION}-php-gd \
     php${PHP_VERSION}-php-ldap php${PHP_VERSION}-php-imap php${PHP_VERSION}-php-odbc php${PHP_VERSION}-php-pear \
@@ -43,4 +43,4 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
 EXPOSE 9000
 WORKDIR /var/www/html
 
-CMD ["php${PHP_VERSION}-php-fpm", "-g", "daemon off;"]
+CMD [php${PHP_VERSION}-php-fpm, -g, daemon off;]
