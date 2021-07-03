@@ -12,7 +12,7 @@ LABEL \
 # -----------------------------------------------------------------------------
 ENV PHP_VERSION=73 \
     PHP_INI_FILE_PATH="/etc/opt/remi/php"${PHP_VERSION}"/php.ini"
-
+    PHP_FPM_PATH="/etc/opt/remi/php"${PHP_VERSION}"/php-fpm.d"
 # -----------------------------------------------------------------------------
 #  PHP-FPM Install
 # -----------------------------------------------------------------------------
@@ -30,6 +30,8 @@ RUN yum install -y yum-utils  epel-release && \
 # -----------------------------------------------------------------------------
 #  PHP-FPM config
 # -----------------------------------------------------------------------------
+COPY default.conf "${PHP_FPM_PATH}"/default.conf
+
 RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI_FILE_PATH} && \
     sed -i "s/upload_max_filesize = .*/upload_max_filesize = 3M/" ${PHP_INI_FILE_PATH} && \
     sed -i 's/^expose_php.*/expose_php = off/' ${PHP_INI_FILE_PATH} && \

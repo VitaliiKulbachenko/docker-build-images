@@ -5,8 +5,7 @@ FROM centos:centos7
 # -----------------------------------------------------------------------------
 
 LABEL \
-        maintainer="Vitalii Kulbachenko <vitalii.kulbachenko@gmail.com>" \
-        build-date="2020-09-21"
+        maintainer="Vitalii Kulbachenko <vitalii.kulbachenko@gmail.com>"
 
 # -----------------------------------------------------------------------------
 #  Nginx Install
@@ -32,7 +31,7 @@ RUN 	chown root:nginx /etc/nginx/nginx.conf; chmod 644 /etc/nginx/nginx.conf && 
         chown -R root:nginx /var/www; chmod -R 755 /var/www && \
    	    chown -R nginx:nginx /tmp/fcgi-cache/ && \
 	   	ln -s /etc/nginx/sites-available/default /etc/nginx/conf.d/default.conf
-	   
+
 EXPOSE 80
 STOPSIGNAL SIGTERM
 CMD ["nginx", "-g", "daemon off;"]
