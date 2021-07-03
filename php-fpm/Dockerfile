@@ -43,4 +43,4 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
 EXPOSE 9000
 WORKDIR /var/www/html
 
-CMD ["php${PHP_VERSION}"]
+CMD [php${PHP_VERSION}]
