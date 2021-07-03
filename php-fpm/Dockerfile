@@ -45,4 +45,4 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
 
 EXPOSE 9000
 
-CMD ["php", "-O" ]
+CMD ["/usr/bin/php", "-O" ]
