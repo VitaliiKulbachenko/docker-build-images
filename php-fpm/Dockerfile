@@ -11,8 +11,8 @@ LABEL \
 #  PHP-FPM ENV
 # -----------------------------------------------------------------------------
 ENV PHP_VERSION=73 \
-    PHP_INI_FILE_PATH="/etc/opt/remi/php"${PHP_VERSION}"/php.ini" \
-    PHP_FPM_PATH="/etc/opt/remi/php"${PHP_VERSION}"/php-fpm.d"
+    PHP_INI_FILE_PATH="/etc/opt/remi/php${PHP_VERSION}/php.ini" \
+    PHP_FPM_PATH="/etc/opt/remi/php${PHP_VERSION}/php-fpm.d"
 # -----------------------------------------------------------------------------
 #  PHP-FPM Install
 # -----------------------------------------------------------------------------
