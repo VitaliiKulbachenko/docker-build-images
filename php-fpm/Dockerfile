@@ -28,6 +28,9 @@ RUN yum install -y yum-utils  epel-release && \
     php${PHP_VERSION}-php-zip php${PHP_VERSION}-php-mysqlnd php${PHP_VERSION}-php-xml php${PHP_VERSION}-php-xmlrpc \
     php${PHP_VERSION}-php-opcache
 
+RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
+
+
 # -----------------------------------------------------------------------------
 #  PHP-FPM config
 # -----------------------------------------------------------------------------
@@ -42,4 +45,4 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
 
 EXPOSE 9000
 
-CMD ["/usr/bin/php74", "-O" ]
+CMD ["php", "-O" ]
