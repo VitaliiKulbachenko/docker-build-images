@@ -41,6 +41,5 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
     sed -i 's/expose_php.*/expose_php = Off/' ${PHP_INI_FILE}
 
 EXPOSE 9000
-WORKDIR /var/www/html
 
-CMD ["/opt/remi/php74/root/usr/sbin/php-fpm --nodaemonize"]
+CMD ["/usr/bin/php73", "-O" ]
