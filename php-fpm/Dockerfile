@@ -28,9 +28,6 @@ RUN yum install -y yum-utils  epel-release && \
     php${PHP_VERSION}-php-zip php${PHP_VERSION}-php-mysqlnd php${PHP_VERSION}-php-xml php${PHP_VERSION}-php-xmlrpc \
     php${PHP_VERSION}-php-opcache
 
-RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
-
-
 # -----------------------------------------------------------------------------
 #  PHP-FPM config
 # -----------------------------------------------------------------------------
@@ -42,6 +39,8 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
     sed -i 's/^max_execution_time.*/max_execution_time = 300/' ${PHP_INI_FILE} && \
     sed -i 's/^max_input_time.*/max_input_time = 300/' ${PHP_INI_FILE} && \
     sed -i 's/expose_php.*/expose_php = Off/' ${PHP_INI_FILE}
+
+RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
 
 EXPOSE 9000
 
