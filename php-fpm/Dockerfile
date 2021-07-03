@@ -16,7 +16,7 @@ ENV PHP_VERSION="${PHP_VERSION}" \
 # -----------------------------------------------------------------------------
 #  PHP-FPM Install
 # -----------------------------------------------------------------------------
-RUN yum install -y yum-utils && \
+RUN yum install -y yum-utils  epel-release && \
     rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
     yum-config-manager --disable remi-php5* && \
     yum-config-manager --enable remi-php"${PHP_VERSION}" && \
