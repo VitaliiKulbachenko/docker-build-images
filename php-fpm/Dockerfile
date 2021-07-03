@@ -10,9 +10,10 @@ LABEL \
 # -----------------------------------------------------------------------------
 #  PHP-FPM ENV
 # -----------------------------------------------------------------------------
-ENV PHP_VERSION=73 \
-    PHP_INI_FILE_PATH="/etc/opt/remi/php${PHP_VERSION}/php.ini" \
-    PHP_FPM_PATH="/etc/opt/remi/php${PHP_VERSION}/php-fpm.d"
+ARG PHP_VERSION
+ENV PHP_VERSION=73
+ENV PHP_INI_FILE="/etc/opt/remi/php${PHP_VERSION}/php.ini"
+ENV PHP_FPM_PATH="/etc/opt/remi/php${PHP_VERSION}/php-fpm.d"
 # -----------------------------------------------------------------------------
 #  PHP-FPM Install
 # -----------------------------------------------------------------------------
@@ -32,12 +33,12 @@ RUN yum install -y yum-utils  epel-release && \
 # -----------------------------------------------------------------------------
 COPY default.conf ${PHP_FPM_PATH}/default.conf
 
-RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI_FILE_PATH} && \
-    sed -i "s/upload_max_filesize = .*/upload_max_filesize = 3M/" ${PHP_INI_FILE_PATH} && \
-    sed -i 's/^expose_php.*/expose_php = off/' ${PHP_INI_FILE_PATH} && \
-    sed -i 's/^max_execution_time.*/max_execution_time = 300/' ${PHP_INI_FILE_PATH} && \
-    sed -i 's/^max_input_time.*/max_input_time = 300/' ${PHP_INI_FILE_PATH} && \
-    sed -i 's/expose_php.*/expose_php = Off/' ${PHP_INI_FILE_PATH}
+RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI_FILE} && \
+    sed -i "s/upload_max_filesize = .*/upload_max_filesize = 3M/" ${PHP_INI_FILE} && \
+    sed -i 's/^expose_php.*/expose_php = off/' ${PHP_INI_FILE} && \
+    sed -i 's/^max_execution_time.*/max_execution_time = 300/' ${PHP_INI_FILE} && \
+    sed -i 's/^max_input_time.*/max_input_time = 300/' ${PHP_INI_FILE} && \
+    sed -i 's/expose_php.*/expose_php = Off/' ${PHP_INI_FILE}
 
 EXPOSE 9000
 WORKDIR /var/www/html
