@@ -11,7 +11,7 @@ LABEL \
 #  PHP-FPM ENV
 # -----------------------------------------------------------------------------
 ARG PHP_VERSION
-ENV PHP_VERSION=73
+ENV PHP_VERSION=${PHP_VERSION:-73}
 ENV PHP_INI_FILE="/etc/opt/remi/php${PHP_VERSION}/php.ini"
 ENV PHP_FPM_PATH="/etc/opt/remi/php${PHP_VERSION}/php-fpm.d"
 # -----------------------------------------------------------------------------

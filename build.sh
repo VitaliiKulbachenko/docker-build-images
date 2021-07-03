@@ -64,7 +64,8 @@ read DISTR
   case $DISTR in
     build-1|1)            docker build -t $name/$vendor-mysql57 ./mysql ;;
     build-2|2)            docker build -t $name/$vendor-nginx ./nginx ;;
-    build-3|3)            docker build --no-cache --build-arg PHP_VERSION=74 -t $name/$vendor-php-fpm ./php-fpm ;;
+    build-3|3)            docker build --no-cache --build-arg PHP_VERSION=73 -t $name/$vendor-php73-fpm ./php-fpm ;;
+    build-4|4)            docker build --no-cache --build-arg PHP_VERSION=74 -t $name/$vendor-php74-fpm ./php-fpm ;;
 
 
      *)
