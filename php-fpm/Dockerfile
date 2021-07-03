@@ -44,4 +44,4 @@ RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
 
 EXPOSE 9000
 
-CMD ["/usr/bin/php", "-O" ]
+CMD ["php74"]
