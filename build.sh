@@ -54,7 +54,7 @@ ECHO_QUESTION -n \
 ***********************************************************
 * 1  - Build :=> Mysql57
 * 2  - Build :=> Nginx
-* 3  - Build :=> Php-fpm 7.* (example: 7.4)
+* 3  - Build :=> Php-fpm 7.3
 ***********************************************************
 " \
 "Choose installation option: => "
@@ -64,7 +64,7 @@ read DISTR
   case $DISTR in
     build-1|1)            docker build -t $name/$vendor-mysql57 ./mysql ;;
     build-2|2)            docker build -t $name/$vendor-nginx ./nginx ;;
-    build-3|3)            docker build -t $name/$vendor-php-fpm --build-arg PHP_VERSION=7.3 ./php-fpm ;;
+    build-3|3)            docker build -t $name/$vendor-php-fpm ./php-fpm ;;
 
 
      *)
