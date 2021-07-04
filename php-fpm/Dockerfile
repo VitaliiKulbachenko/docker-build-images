@@ -31,6 +31,7 @@ RUN yum install -y yum-utils  epel-release && \
 # -----------------------------------------------------------------------------
 #  PHP-FPM config
 # -----------------------------------------------------------------------------
+RUN rm -f /etc/opt/remi/php74/php-fpm.d/www.conf
 COPY default.conf ${PHP_FPM_PATH}/default.conf
 
 RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI_FILE} && \
@@ -44,5 +45,5 @@ RUN adduser --system --no-create-home --user-group -s /sbin/nologin nginx
 
 EXPOSE 9000
 
-#CMD ["/opt/remi/php74/root/usr/sbin/php-fpm", "--daemonize"]
-CMD ["php74"]
+CMD ["/opt/remi/php74/root/usr/sbin/php-fpm", "--daemonize"]
+#CMD ["php74"]
