@@ -44,4 +44,4 @@ RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
 
 EXPOSE 9000
 
-CMD ["/opt/remi/php74/root/usr/sbin/php-fpm -c /etc/opt/remi/php74/php-fpm.conf"]
+CMD ["php74"]
