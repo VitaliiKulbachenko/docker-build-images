@@ -40,8 +40,8 @@ RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Kiev/g' ${PHP_INI
     sed -i 's/^max_input_time.*/max_input_time = 300/' ${PHP_INI_FILE} && \
     sed -i 's/expose_php.*/expose_php = Off/' ${PHP_INI_FILE}
 
-RUN ln -s /usr/bin/${PHP_VERSION} /usr/bin/php
+RUN adduser --system --no-create-home --user-group -s /sbin/nologin nginx
 
 EXPOSE 9000
 
-CMD ["php74"]
+CMD ["/opt/remi/php${PHP_VERSION}/root/usr/sbin/php-fpm", "--nodaemonize"]
