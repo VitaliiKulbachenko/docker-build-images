@@ -45,5 +45,5 @@ RUN adduser --system --no-create-home --user-group -s /sbin/nologin nginx
 
 EXPOSE 9000
 
-CMD ["/opt/remi/php74/root/usr/sbin/php-fpm", "--nodaemonize"]
-#CMD ["php74"]
+#CMD ["/opt/remi/php74/root/usr/sbin/php-fpm", "--nodaemonize"]
+CMD ["php74"]
