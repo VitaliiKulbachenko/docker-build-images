@@ -56,6 +56,7 @@ ECHO_QUESTION -n \
 * 2  - Build :=> Nginx
 * 3  - Build :=> Php-fpm 7.3
 * 4  - Build :=> Php-fpm 7.4
+* 5  - Build :=> MariaDB 10.5
 ***********************************************************
 " \
 "Choose installation option: => "
@@ -67,6 +68,7 @@ read DISTR
     build-2|2)            docker build -t $name/$vendor-nginx ./nginx ;;
     build-3|3)            docker build --build-arg PHP_VERSION=73 -t $name/$vendor-php73-fpm ./php-fpm ;;
     build-4|4)            docker build --build-arg PHP_VERSION=74 -t $name/$vendor-php74-fpm ./php-fpm ;;
+    build-5|5)            docker build -t $name/$vendor-mariadb10.5 ./mariadb/10.5 ;;
 
 
      *)
