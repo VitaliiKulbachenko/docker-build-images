@@ -36,6 +36,7 @@ RUN \
 RUN	\
 		rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld && \
 		chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && \
+    mkdir /var/log/mysql; chown -R mysql:mysql /var/log/mysql && \
 		chmod 777 /var/run/mysqld
 
 ADD my.cnf /etc/my.cnf

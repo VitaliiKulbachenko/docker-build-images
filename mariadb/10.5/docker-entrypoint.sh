@@ -94,24 +94,6 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 			echo 'Certificates initialized'
 		fi
 
-		SOCKET="$(_get_config 'socket' "$@")"
-		"$@" --skip-networking --socket="${SOCKET}" &
-		pid="$!"
-
-		mysql=( mysql --protocol=socket -uroot -hlocalhost --socket="${SOCKET}" )
-
-		for i in {30..0}; do
-			if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
-				break
-			fi
-			echo 'MySQL init process in progress...'
-			sleep 1
-		done
-		if [ "$i" = 0 ]; then
-			echo >&2 'MySQL init process failed.'
-			exit 1
-		fi
-
 		if [ -z "$MYSQL_INITDB_SKIP_TZINFO" ]; then
 			# sed is for https://bugs.mysql.com/bug.php?id=20545
 			mysql_tzinfo_to_sql /usr/share/zoneinfo | sed 's/Local time zone must be set--see zic manual page/FCTY/' | "${mysql[@]}" mysql
