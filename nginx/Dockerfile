@@ -14,8 +14,8 @@ LABEL \
 RUN 	yum -y install openssl hostname \
 		yum clean all && \
 		rm -rf /var/cache/* && \
-        rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
-	    yum -y install nginx && \
+    rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
+	  yum -y install nginx && \
 	 	mkdir  /tmp/fcgi-cache && \
 	 	mkdir -p /etc/nginx && \
 	 	rm -rf /etc/nginx/conf.d/*
