@@ -46,7 +46,8 @@ EOF
 
 # Variables
 name=vitaliikulbachenko
-vendor=centos7
+vendor1=centos
+vendor2=alpine
 
 #----------------------------- CASE -------------------------------
 ECHO_QUESTION -n \
@@ -57,6 +58,7 @@ ECHO_QUESTION -n \
 * 3  - Build :=> Php-fpm 7.3
 * 4  - Build :=> Php-fpm 7.4
 * 5  - Build :=> MariaDB 10.5
+* 6.1  - Build :=> Dnsmasq:alpine
 ***********************************************************
 " \
 "Choose installation option: => "
@@ -64,12 +66,13 @@ ECHO_QUESTION -n \
 read DISTR
 #--no-cache
   case $DISTR in
-    build-1|1)            docker build -t $name/$vendor-mysql57 ./mysql ;;
-    build-2|2)            docker build -t $name/$vendor-nginx ./nginx ;;
-    build-3|3)            docker build --build-arg PHP_VERSION=73 -t $name/$vendor-php73-fpm ./php-fpm ;;
-    build-4|4)            docker build --build-arg PHP_VERSION=74 -t $name/$vendor-php74-fpm ./php-fpm ;;
-    build-5|5)            docker build -t $name/$vendor-mariadb10.5 ./mariadb/10.5 ;;
-
+    build-1|1)            docker build -t $name/$vendor1-mysql57 ./mysql ;;
+    build-2|2)            docker build -t $name/$vendor1-nginx ./nginx ;;
+    build-3|3)            docker build --build-arg PHP_VERSION=73 -t $name/$vendor1-php73-fpm ./php-fpm ;;
+    build-4|4)            docker build --build-arg PHP_VERSION=74 -t $name/$vendor1-php74-fpm ./php-fpm ;;
+    build-5|5)            docker build -t $name/$vendor1-mariadb10.5 ./mariadb/10.5 ;;
+    build-6.1|6.1)        time docker build -t $name/dnsmasq-$vendor2 -f ./dnsmasq/Dockerfile.alpine ./dnsmasq;;
+    build-6.2|6.2)        time docker build -t $name/dnsmasq-$vendor2 -f ./dnsmasq/Dockerfile.centos ./dnsmasq;;
 
      *)
           echo "Goodbye my friend."
