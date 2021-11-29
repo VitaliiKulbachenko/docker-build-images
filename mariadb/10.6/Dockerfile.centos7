@@ -1,0 +1,66 @@
+FROM centos:centos7
+MAINTAINER  vitalii.kulbachenko@gmail.com
+
+# -----------------------------------------------------------------------------
+# Labels
+# -----------------------------------------------------------------------------
+LABEL \
+        maintainer="Vitalii Kulbachenko <vitalii.kulbachenko@gmail.com>"
+
+# -----------------------------------------------------------------------------
+# ENV
+# -----------------------------------------------------------------------------
+ARG MARIADB_VERSION
+ENV MARIADB_VERSION=${MARIADB_VERSION:-10.6}
+
+
+# -----------------------------------------------------------------------------
+# Installing
+# -----------------------------------------------------------------------------
+RUN { \
+      echo '[mariadb]'; \
+      echo 'name = MariaDB'; \
+      echo "baseurl = http://yum.mariadb.org/$MARIADB_VERSION/centos7-amd64"; \
+      echo 'gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB'; \
+      echo 'gpgcheck=1'; \
+    } > /etc/yum.repos.d/mariadb.repo
+
+RUN \
+    yum install -y epel-release && \
+    yum install -y pwgen wget MariaDB-server MariaDB-client && \
+		yum clean all && \
+		rm -fr /var/cache/*
+
+
+ENV GOSU_VERSION=1.14
+    RUN gpg --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64" \
+    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64.asc" \
+    && gpg --verify /usr/local/bin/gosu.asc \
+    && rm /usr/local/bin/gosu.asc \
+    && rm -r /root/.gnupg/ \
+    && chmod +x /usr/local/bin/gosu \
+    # Verify that the binary works
+    && gosu nobody true
+
+RUN mkdir /docker-entrypoint-initdb.d
+
+# -----------------------------------------------------------------------------
+# Configuration
+# -----------------------------------------------------------------------------
+RUN \
+    rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld && \
+    chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && \
+    mkdir /var/log/mysql; chown -R mysql:mysql /var/log/mysql && \
+    chmod 777 /var/run/mysqld
+
+ADD my.cnf /etc/my.cnf
+
+VOLUME /var/lib/mysql
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306
+CMD ["mysqld"]
