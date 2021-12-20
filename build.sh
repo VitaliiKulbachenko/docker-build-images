@@ -67,7 +67,7 @@ ECHO_QUESTION -n \
 read DISTR
   case $DISTR in
     build-1.1|1.1)        time docker build -t $name/nginx-$vendor1 ./nginx ;;
-    build-1.2|1.2)        time docker build -t $name/nginx-1.20-$vendor2-3.14.3 -f ./nginx/Dockerfile.alpine ./nginx;;
+    build-1.2|1.2)        time docker build --build-arg NGINX_VERSION=1.20.2-r0 -t $name/nginx-1.20-$vendor2-3.14.3 -f ./nginx/Dockerfile.alpine ./nginx;;
     
     build-3|3)            time docker build --build-arg PHP_VERSION=73 -t $name/php73-fpm-$vendor1 ./php-fpm ;;
     build-4|4)            time docker build --build-arg PHP_VERSION=74 -t $name/php74-fpm-$vendor1 ./php-fpm ;;
