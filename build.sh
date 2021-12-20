@@ -48,13 +48,12 @@ EOF
 name=vitaliikulbachenko
 vendor1=centos7
 vendor2=alpine
-
 #----------------------------- CASE -------------------------------
 ECHO_QUESTION -n \
 "
 ***********************************************************
 * 1.1  - Build :=> Nginx
-* 1.2  - Build :=> Nginx 1.20 :alpine 3.15
+* 1.2  - Build :=> Nginx 1.20 :alpine 3.14.3
 * 1  - Build :=> Mysql57
 * 3  - Build :=> Php-fpm 7.3
 * 4  - Build :=> Php-fpm 7.4
@@ -68,7 +67,7 @@ ECHO_QUESTION -n \
 read DISTR
   case $DISTR in
     build-1.1|1.1)        time docker build -t $name/nginx-$vendor1 ./nginx ;;
-    build-1.2|1.2)        time docker build -t $name/nginx-1.20-$vendor2 -f ./nginx/Dockerfile.alpine ./nginx;;
+    build-1.2|1.2)        time docker build -t $name/nginx-1.20-$vendor2-3.14.3 -f ./nginx/Dockerfile.alpine ./nginx;;
     
     build-3|3)            time docker build --build-arg PHP_VERSION=73 -t $name/php73-fpm-$vendor1 ./php-fpm ;;
     build-4|4)            time docker build --build-arg PHP_VERSION=74 -t $name/php74-fpm-$vendor1 ./php-fpm ;;
