@@ -9,7 +9,7 @@ LABEL \
 # -----------------------------------------------------------------------------
 #  Nginx Install
 # -----------------------------------------------------------------------------
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=nginx-1.20.2-r0.apk \
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=1.20.2-r0 \
     && mkdir -p /run/nginx
 
 # -----------------------------------------------------------------------------
