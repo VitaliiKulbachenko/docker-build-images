@@ -14,6 +14,9 @@ ENV NGINX_VERSION=${NGINX_VERSION:-1.20.2-r0}
 # -----------------------------------------------------------------------------
 #  Install
 # -----------------------------------------------------------------------------
+#RUN echo http://repository.fit.cvut.cz/mirrors/alpine/v3.8/main > /etc/apk/repositories; \
+#    echo http://repository.fit.cvut.cz/mirrors/alpine/v3.8/community >> /etc/apk/repositories
+
 RUN apk add --no-cache \
     --repository https://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=${NGINX_VERSION} 
 
