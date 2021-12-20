@@ -14,7 +14,8 @@ ENV NGINX_VERSION=${NGINX_VERSION:-1.20.2-r0}
 # -----------------------------------------------------------------------------
 #  Install
 # -----------------------------------------------------------------------------
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=${NGINX_VERSION} \
+RUN apk add --no-cache \
+    && --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main/x86_64 nginx=${NGINX_VERSION} \
 	&& mkdir -p /run/nginx
 
 # -----------------------------------------------------------------------------
