@@ -22,9 +22,8 @@ RUN yum -y install openssl hostname \
 # -----------------------------------------------------------------------------
 RUN	mkdir  /tmp/fcgi-cache && \
 	 	mkdir -p /etc/nginx && \
-	 	rm -rf /etc/nginx/conf.d/*
-
-RUN chown root:nginx /etc/nginx/nginx.conf; chmod 644 /etc/nginx/nginx.conf && \
+	 	rm -rf /etc/nginx/conf.d/* && \
+    chown root:nginx /etc/nginx/nginx.conf; chmod 644 /etc/nginx/nginx.conf && \
 	  chown -R root:nginx /etc/nginx/sites-available; chmod -R 644 /etc/nginx/sites-available/* && \
     chown -R root:nginx /etc/nginx/templates; chmod -R 644 /etc/nginx/templates/* && \
     chown -R root:nginx /var/www; chmod -R 755 /var/www && \
