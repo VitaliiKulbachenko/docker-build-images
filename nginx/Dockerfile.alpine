@@ -5,11 +5,16 @@ FROM alpine:3.14.3
 # -----------------------------------------------------------------------------
 LABEL \
         maintainer="Vitalii Kulbachenko <vitalii.kulbachenko@gmail.com>"
+# -----------------------------------------------------------------------------
+#  Nginx ENV
+# -----------------------------------------------------------------------------
+ARG NGINX_VERSION
+ENV NGINX_VERSION=${NGINX_VERSION:-1.20.2-r0}
 
 # -----------------------------------------------------------------------------
 #  Nginx Install
 # -----------------------------------------------------------------------------
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=1.20.2-r0 \
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.14/main nginx=${NGINX_VERSION} \
     && mkdir -p /run/nginx
 
 # -----------------------------------------------------------------------------
