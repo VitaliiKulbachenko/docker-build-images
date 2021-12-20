@@ -53,8 +53,9 @@ vendor2=alpine
 ECHO_QUESTION -n \
 "
 ***********************************************************
+* 1.1  - Build :=> Nginx
+* 1.2  - Build :=> Nginx 1.20 :alpine 3.15
 * 1  - Build :=> Mysql57
-* 2  - Build :=> Nginx
 * 3  - Build :=> Php-fpm 7.3
 * 4  - Build :=> Php-fpm 7.4
 * 5.1  - Build :=> MariaDB 10.5 :centos7
@@ -66,17 +67,19 @@ ECHO_QUESTION -n \
 
 read DISTR
   case $DISTR in
-    build-1|1)            docker build -t $name/mysql57-$vendor1 ./mysql ;;
-    build-2|2)            docker build -t $name/nginx-$vendor1 ./nginx ;;
+    build-1.1|1.1)        time docker build docker build -t $name/nginx-$vendor1 ./nginx ;;
+    build-1.2|1.2)        time docker build docker build -t $name/nginx-1.20-$vendor2 -f ./nginx/Dockerfile.alpine ./nginx;;
     
-    build-3|3)            docker build --build-arg PHP_VERSION=73 -t $name/php73-fpm-$vendor1 ./php-fpm ;;
-    build-4|4)            docker build --build-arg PHP_VERSION=74 -t $name/php74-fpm-$vendor1 ./php-fpm ;;
+    build-3|3)            time docker build --build-arg PHP_VERSION=73 -t $name/php73-fpm-$vendor1 ./php-fpm ;;
+    build-4|4)            time docker build --build-arg PHP_VERSION=74 -t $name/php74-fpm-$vendor1 ./php-fpm ;;
+     
+    build-1|1)            time docker build -t $name/mysql57-$vendor1 ./mysql ;;
 
-    build-5.1|5.1)        docker build -t $name/mariadb10.5-$vendor1 ./mariadb/10.5 ;;
-    build-5.1|5.2)        docker build --build-arg MARIADB_VERSION=10.6 -t $name/mariadb10.6-$vendor1 -f ./mariadb/10.6/Dockerfile.centos7 ./mariadb/10.6;;
+    build-5.1|5.1)        time docker build -t $name/mariadb10.5-$vendor1 ./mariadb/10.5 ;;
+    build-5.1|5.2)        time docker build --build-arg MARIADB_VERSION=10.6 -t $name/mariadb10.6-$vendor1 -f ./mariadb/10.6/Dockerfile.centos7 ./mariadb/10.6;;
 
-    build-6.1|6.1)        time docker build --no-cache -t $name/dnsmasq-$vendor1 -f ./dnsmasq/Dockerfile.centos7 ./dnsmasq;;
-    build-6.2|6.2)        time docker build --no-cache -t $name/dnsmasq-$vendor2 -f ./dnsmasq/Dockerfile.alpine ./dnsmasq;;
+    build-6.1|6.1)        time docker build -t $name/dnsmasq-$vendor1 -f ./dnsmasq/Dockerfile.centos7 ./dnsmasq;;
+    build-6.2|6.2)        time docker build -t $name/dnsmasq-$vendor2 -f ./dnsmasq/Dockerfile.alpine ./dnsmasq;;
 
      *)
           echo "Goodbye my friend."
